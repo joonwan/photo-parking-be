@@ -26,6 +26,14 @@ public class ParkingLot {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Embedded
+    @Column(nullable = false)
+    private Address address;
+
+    @Embedded
+    @Column(nullable = false)
+    private FeePolicy feePolicy;
+
     @Builder
     private ParkingLot(String parkingLotName) {
         this.parkingLotName = parkingLotName;
