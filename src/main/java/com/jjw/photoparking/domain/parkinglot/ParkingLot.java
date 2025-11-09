@@ -2,6 +2,7 @@ package com.jjw.photoparking.domain.parkinglot;
 
 import com.jjw.photoparking.domain.BaseEntity;
 import com.jjw.photoparking.domain.discountpolicy.DiscountPolicy;
+import com.jjw.photoparking.domain.monthlypassvehicle.MonthlyPassVehicle;
 import com.jjw.photoparking.domain.user.User;
 import jakarta.persistence.*;
 
@@ -34,6 +35,9 @@ public class ParkingLot extends BaseEntity {
     @OneToMany(mappedBy = "parkingLot")
     private List<DiscountPolicy> discountPolicies = new ArrayList<>();
 
+    @OneToMany(mappedBy = "parkingLot")
+    private List<MonthlyPassVehicle> monthlyPassVehicles = new ArrayList<>();
+
     @Embedded
     @Column(nullable = false)
     private FeePolicy feePolicy;
@@ -49,5 +53,9 @@ public class ParkingLot extends BaseEntity {
 
     public void addDiscountPolicy(DiscountPolicy discountPolicy) {
         this.discountPolicies.add(discountPolicy);
+    }
+
+    public void addMonthlyPassVehicle(MonthlyPassVehicle monthlyPassVehicle) {
+        this.monthlyPassVehicles.add(monthlyPassVehicle);
     }
 }
