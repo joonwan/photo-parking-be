@@ -1,5 +1,6 @@
 package com.jjw.photoparking.domain.parkinglot;
 
+import com.jjw.photoparking.domain.BaseEntity;
 import com.jjw.photoparking.domain.user.User;
 import jakarta.persistence.*;
 
@@ -12,23 +13,19 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "parking_lots")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ParkingLot {
+public class ParkingLot extends BaseEntity {
 
     @Id
     @Column(name = "parking_lot_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "parking_log_name", nullable = false, length = 255)
+    @Column(name = "parking_lot_name", nullable = false, length = 255)
     private String parkingLotName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-
-    @Embedded
-    @Column(nullable = false)
-    private Address address;
 
     @Embedded
     @Column(nullable = false)
