@@ -1,6 +1,7 @@
 package com.jjw.photoparking.domain.parkinglot;
 
 import com.jjw.photoparking.domain.BaseEntity;
+import com.jjw.photoparking.domain.discountpolicy.DiscountPolicy;
 import com.jjw.photoparking.domain.user.User;
 import jakarta.persistence.*;
 
@@ -8,6 +9,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,6 +31,9 @@ public class ParkingLot extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "parkingLot")
+    private List<DiscountPolicy> discountPolicies = new ArrayList<>();
+
     @Embedded
     @Column(nullable = false)
     private FeePolicy feePolicy;
@@ -37,7 +44,10 @@ public class ParkingLot extends BaseEntity {
     }
 
     public void initializeUser(User user) {
-        this.user = user;
         user.addParkingLot(this);
+    }
+
+    public void addDiscountPolicy(DiscountPolicy discountPolicy) {
+        this.discountPolicies.add(discountPolicy);
     }
 }
